@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(DarkestSpire)
+project(Muze)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,7 +18,7 @@ file(GLOB SRC_FILES
     "src/core/*.cc"
 )
 
-add_executable(DarkestSpire main.cc ${SRC_FILES})
+add_executable(Muze main.cc ${SRC_FILES})
 
-target_link_libraries(DarkestSpire ${SDL2_LIBRARIES} SDL2_image)
+target_link_libraries(Muze ${SDL2_LIBRARIES} SDL2_image)
 message(STATUS "SDL2_IMAGE_LIBRARIES = ${SDL2IMAGE_LIBRARY}")
