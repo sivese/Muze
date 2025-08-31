@@ -34,6 +34,24 @@ void Engine::run() {
         
         this->update();
         this->render();
-        this->limitFrameRate();
+        //this->limitFrameRate();
     }
+}
+
+// game logic initialize
+// no engine logic initialization
+void Engine::initialize() {
+
+}
+
+void Engine::update() {
+    // Update game logic
+}
+
+void Engine::render() {
+    // Render game logic
+}
+
+void Engine::cleanup() {
+    // Cleanup game logic
 }
