@@ -55,3 +55,11 @@ void Engine::render() {
 void Engine::cleanup() {
     // Cleanup game logic
 }
+
+void Engine::calculateDeltaTime() {
+
+}
+
+void Engine::limitFrameRate() {
+
+}
