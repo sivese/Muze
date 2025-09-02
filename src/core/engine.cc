@@ -10,13 +10,18 @@ Engine::Engine(int width, int height)
     : running(false), deltaTime(0.0f), fps(0.0f) {
 
     try {
-        this->window = std::make_unique<Window>(ENGINE_NAME.c_str(), width, height);
-        lastTime = std::chrono::high_resolution_clock::now();
-        running = true;
+        this->eventObserver = std::make_unique<EventObserver>();
+        this->window        = std::make_unique<Window>(ENGINE_NAME.c_str(), width, height);
+        
+        //TODO
+        //Add Input and Time system
+
+        this->lastTime = std::chrono::high_resolution_clock::now();
+        this->running = true;
     }
     catch(const std::exception& e) {
         Muze::logError("Engine initialization failed: " + std::string(e.what()));
-        running = false;
+        this->running = false;
     }
 }
 
@@ -30,8 +35,9 @@ void Engine::run() {
     initialize();
 
     while (this->running && this->window->isRunning()) {
-        calculateDeltaTime();
-        
+        pollEvents();
+        publishFrameEvents();
+
         this->update();
         this->render();
         //this->limitFrameRate();
@@ -49,11 +55,14 @@ void Engine::update() {
 }
 
 void Engine::render() {
-    // Render game logic
+    if(this->window) {
+        this->window->clear();
+        this->window->present();
+    }
 }
 
 void Engine::cleanup() {
-    // Cleanup game logic
+    if(eventObserver) eventObserver->clear();
 }
 
 void Engine::calculateDeltaTime() {
@@ -61,5 +70,21 @@ void Engine::calculateDeltaTime() {
 }
 
 void Engine::limitFrameRate() {
+
+}
+
+void Engine::pollEvents() {
+    auto event = SDL_Event();
+
+    while(SDL_PollEvent(&event)) {
+        eventObserver->publishSDLEvent(event);
+
+        if(event.type == SDL_QUIT) {
+            this->running = false;
+        }
+    }
+}
+
+void Engine::publishFrameEvents() {
 
 }

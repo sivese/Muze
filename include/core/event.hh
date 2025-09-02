@@ -72,7 +72,7 @@ public:
     void unsubscribe();
 
     void publish();
-    void publishSDLEvent();
+    void publishSDLEvent(const SDL_Event& sdlEvent);
     void processEvents();
     void clear();
 private:

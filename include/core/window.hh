@@ -8,7 +8,6 @@ public:
     virtual ~Window();
 
     bool isRunning();
-    void pollEvents();
     void clear();
     void present();
 

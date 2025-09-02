@@ -35,16 +35,6 @@ bool Window::isRunning() {
     return running;
 }
 
-void Window::pollEvents() {
-    SDL_Event event;
-    
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            running = false;
-        }
-    }
-}
-
 void Window::clear() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);

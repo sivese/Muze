@@ -5,6 +5,9 @@
 #include <chrono>
 
 #include "core/window.hh"
+#include "event.hh"
+#include "time.hh"
+#include "input.hh"
 
 class Engine {
 public:
@@ -23,10 +26,14 @@ public:
     float getFPS()          const { return this->fps; }
     
     static const std::string ENGINE_NAME;
-    protected:
+protected:
     using TimePoint = std::chrono::high_resolution_clock::time_point;
     
     std::unique_ptr<Window> window;
+    std::unique_ptr<EventObserver> eventObserver;
+    //std::unique_ptr<Muze::Input> inputManager;
+    //std::unique_ptr<Muze::Time> timeManager;
+
     bool running;
     
     //timing
@@ -36,7 +43,6 @@ public:
     
     static constexpr int    TARGET_FPS = 60;
     static constexpr float  TARGET_FRAME_TIME = 1000.0f / TARGET_FPS;
-    
 private:
     // Core loop management
     virtual void initialize();
@@ -44,6 +50,9 @@ private:
     virtual void render();
     virtual void cleanup();
 
+    void pollEvents();
+    void publishFrameEvents();
+    
     void calculateDeltaTime();
     void limitFrameRate();
 };
